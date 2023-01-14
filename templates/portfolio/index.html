@@ -14,7 +14,7 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-	<title>Huzaifa Zahoor Al Sikandar</title>
+	<title>Huzaifa Zahoor - Portfolio</title>
 	{% load static %}
 
 	<!-- STYLES -->
@@ -196,12 +196,12 @@
 														<span>+92 332 575 8954</span>
 													</li>
 													<li>
-														<h3>Address</h3>
-														<span>Islamabad</span>
+														<h3>Remote Available</h3>
+														<span>4:00 AM - 4:00 PM (UTC)</span>
 													</li>
 													<li>
-														<h3>Nationality</h3>
-														<span>Pakistani</span>
+														<h3>Address</h3>
+														<span>Islamabad, Pakistan</span>
 													</li>
 												</ul>
 											</div>
@@ -210,7 +210,7 @@
 									<div class="right">
 										<div class="iknow_tm_main_title">
 											<span>About Me</span>
-											<h3>World leading UI/UX designer</h3>
+											<h3>Python Data Engineer</h3>
 										</div>
 										<div class="bigger_text">
 											<p>A passionate UI/UX Designer and Web Developer based In NYC, USA</p>
@@ -322,63 +322,27 @@
 										<div class="right">
 											<div class="skills_list">
 												<div class="iknow_tm_resume_title">
-													<h3>Personal Skills</h3>
+													<h3>Skills</h3>
 													<span class="shape"></span>
 												</div>
 												<div class="personal">
 													<div class="dodo_progress">
-														<div class="progress_inner" data-value="70">
-															<span><span class="label">Effeciency</span></span>
+														<div class="progress_inner" data-value="100">
+															<span><span class="label">Python</span></span>
 															<div class="background">
 																<div class="bar">
 																	<div class="bar_in"></div>
 																</div>
 															</div>
 														</div>
-													</div>
-												</div>
-											</div>
-											<div class="skills_list">
-												<div class="iknow_tm_resume_title">
-													<h3>Software Skills</h3>
-													<span class="shape"></span>
-												</div>
-												<div class="software">
-													<div class="circular_progress_bar">
-														<ul>
-															<li>
-																<div class="list_inner">
-																	<div class="myCircle" data-value="0.8"></div>
-																	<div class="title">
-																		<h3>Ms Office</h3>
-																	</div>
+														<div class="progress_inner" data-value="100">
+															<span><span class="label">Django</span></span>
+															<div class="background">
+																<div class="bar">
+																	<div class="bar_in"></div>
 																</div>
-															</li>
-															<li>
-																<div class="list_inner">
-																	<div class="myCircle" data-value="0.75"></div>
-																	<div class="title">
-																		<h3>Photoshop</h3>
-																	</div>
-																</div>
-															</li>
-															<li>
-																<div class="list_inner">
-																	<div class="myCircle" data-value="0.9"></div>
-																	<div class="title">
-																		<h3>Illustrator</h3>
-																	</div>
-																</div>
-															</li>
-															<li>
-																<div class="list_inner">
-																	<div class="myCircle" data-value="0.65"></div>
-																	<div class="title">
-																		<h3>Figma</h3>
-																	</div>
-																</div>
-															</li>
-														</ul>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
@@ -395,28 +359,20 @@
 										<span>Resume</span>
 										<h3>My works that I did for clients</h3>
 									</div>
-									<div class="portfolio_filter">
-										<ul>
-											<li><a href="#" class="current" data-filter="*">All</a></li>
-											<li><a href="#" data-filter=".vimeo">Vimeo</a></li>
-											<li><a href="#" data-filter=".youtube">Youtube</a></li>
-											<li><a href="#" data-filter=".soundcloud">Soundcloud</a></li>
-											<li><a href="#" data-filter=".detail">Detail</a></li>
-										</ul>
-									</div>
 									<div class="portfolio_list">
 										<ul class="gallery_zoom">
+											{% for obj in user.portfolio.objects.all %}
 											<li class="detail">
 												<div class="list_inner">
 													<div class="image">
-														<img src="img/thumbs/1-1.jpg" alt="" />
-														<div class="main" data-img-url="img/portfolio/8.jpg"></div>
+														<img src="{% static 'img/thumbs/1-1.jpg' %}" alt="" />
+														<div class="main" data-img-url="{% static 'img/portfolio/8.jpg' %}"></div>
 													</div>
 													<div class="overlay"></div>
-													<img class="svg" src="img/svg/text.svg" alt="" />
+													<img class="svg" src="{% static 'img/svg/text.svg' %}" alt="" />
 													<div class="details">
 														<span>Detail</span>
-														<h3>Teresa Melbig</h3>
+														<h3>{{ obj.title }}</h3>
 													</div>
 													<a class="iknow_tm_full_link portfolio_popup" href="#"></a>
 
@@ -424,87 +380,40 @@
 														<div class="popup_details">
 															<div class="main_details">
 																<div class="textbox">
-																	<p>We live in a world where we need to move quickly
-																		and iterate on our ideas as flexibly as
-																		possible. Building mockups strikes the ideal
-																		balance ease of modification.</p>
-																	<p>Mockups are useful both for the creative phase of
-																		the project - for instance when you're trying to
-																		figure out your user flows or the proper visual
-																		hierarchy - and the production phase when they
-																		will represent the target product.</p>
+																	<p>{{ obj.description }}</p>
 																</div>
 																<div class="detailbox">
 																	<ul>
+																		{% if obj.client %}
 																		<li>
 																			<span class="first">Client</span>
-																			<span>Alvaro Morata</span>
+																			<span>{{ obj.client }}</span>
 																		</li>
-																		<li>
-																			<span class="first">Category</span>
-																			<span><a href="#">Detail</a></span>
-																		</li>
-																		<li>
-																			<span class="first">Date</span>
-																			<span>March 07, 2021</span>
-																		</li>
-																		<li>
-																			<span class="first">Share</span>
-																			<ul class="share">
-																				<li><a href="#"><img class="svg"
-																							src="img/svg/social/facebook.svg"
-																							alt="" /></a></li>
-																				<li><a href="#"><img class="svg"
-																							src="img/svg/social/twitter.svg"
-																							alt="" /></a></li>
-																				<li><a href="#"><img class="svg"
-																							src="img/svg/social/instagram.svg"
-																							alt="" /></a>
-																				</li>
-																			</ul>
-																		</li>
+																		{% endif %}
 																	</ul>
 																</div>
 															</div>
 															<div class="additional_images">
 																<ul>
+																	{% for image in obj.images.all %}
 																	<li>
 																		<div class="list_inner">
 																			<div class="my_image">
-																				<img src="img/thumbs/4-2.jpg" alt="" />
+																				<img src="{{ image.url }}" alt="" />
 																				<div class="main"
-																					data-img-url="img/portfolio/1.jpg">
+																					data-img-url="{% static 'img/portfolio/1.jpg' %}">
 																				</div>
 																			</div>
 																		</div>
 																	</li>
-																	<li>
-																		<div class="list_inner">
-																			<div class="my_image">
-																				<img src="img/thumbs/4-2.jpg" alt="" />
-																				<div class="main"
-																					data-img-url="img/portfolio/2.jpg">
-																				</div>
-																			</div>
-																		</div>
-																	</li>
-																	<li>
-																		<div class="list_inner">
-																			<div class="my_image">
-																				<img src="img/thumbs/4-2.jpg" alt="" />
-																				<div class="main"
-																					data-img-url="img/portfolio/3.jpg">
-																				</div>
-																			</div>
-																		</div>
-																	</li>
+																	{% endfor %}
 																</ul>
 															</div>
 														</div>
 													</div>
-
 												</div>
 											</li>
+											{% endfor %}
 										</ul>
 									</div>
 								</div>
@@ -522,37 +431,20 @@
 										<ul>
 											<li>
 												<div class="list_inner">
-													<span class="icon"><img class="svg" src="img/svg/squares.svg"
-															alt="" /></span>
-													<h3 class="title">Wireframing</h3>
-													<p class="text">Development is the building and maintenance...</p>
+													<span class="icon"><img class="svg" src="{% static 'img/svg/squares.svg' %}"
+															alt="Squares" /></span>
+													<h3 class="title">Stock Market Development</h3>
+													<p class="text">Two plus years of Experience in Fintech Development...</p>
 													<a class="iknow_tm_full_link" href="#"></a>
 													<div class="hidden_content">
 														<div class="service_informations">
 															<div class="image">
-																<img src="img/thumbs/4-2.jpg" alt="" />
+																<img src="{% static 'img/thumbs/4-2.jpg' %}" alt="" />
 																<div class="main" data-img-url="img/service/1.jpg">
 																</div>
 															</div>
 															<div class="description">
-																<p>iKnow is a leading web design agency with an
-																	award-winning design team that creates innovative,
-																	effective websites that capture your brand, improve
-																	your conversion rates, and maximize your revenue to
-																	help grow your business and achieve your goals.</p>
-																<p>In today’s digital world, your website is the first
-																	interaction consumers have with your business.
-																	That's why almost 95 percent of a user’s first
-																	impression relates to web design. It’s also why web
-																	design services can have an immense impact on your
-																	company’s bottom line.</p>
-																<p>That’s why more companies are not only reevaluating
-																	their website’s design but also partnering with
-																	Kura, the web design agency that’s driven more than
-																	$2.4 billion in revenue for its clients. With over
-																	50 web design awards under our belt, we're confident
-																	we can design a custom website that drives sales for
-																	your unique business.</p>
+																<p>I have experience in building the Stock Screener for different exchanges. I have worked with the US Market, Canadian Market, Nepali, and German Exchange.</p>
 															</div>
 														</div>
 													</div>
@@ -573,11 +465,10 @@
 									</div>
 									<div class="testimonials_list owl-carousel owl-theme">
 										<div class="list_inner">
+											{% for obj in user.testimonials.objects.all %}
 											<div class="in">
 												<div class="text">
-													<p>These people really know what they are doing! Great customer
-														support availability and supperb kindness. I am very happy that
-														I've purchased this liscense!!!</p>
+													<p>{{ obj.description }}</p>
 												</div>
 												<div class="details">
 													<div class="left">
@@ -586,15 +477,16 @@
 															</div>
 														</div>
 														<div class="info">
-															<h3>Jecob Oramson</h3>
-															<span>Designer</span>
+															<h3>{{ obj.name }}</h3>
+															<span>Fiverr</span>
 														</div>
 													</div>
 													<div class="right">
-														<img class="svg" src="img/svg/left-quote.svg" alt="" />
+														<img class="svg" src="{% static 'img/svg/left-quote.svg' %}" alt="{{ obj.name }}-image" />
 													</div>
 												</div>
 											</div>
+											{% endfor %}
 										</div>
 									</div>
 								</div>
@@ -613,7 +505,7 @@
 											<ul>
 												<li>
 													<div class="list_inner">
-														<span class="icon"><img class="svg" src="img/svg/smartphone.svg"
+														<span class="icon"><img class="svg" src="{% static 'img/svg/smartphone.svg' %}"
 																alt="" /></span>
 														<div class="short">
 															<h3>WhatsApp/Call Me</h3>
@@ -623,7 +515,7 @@
 												</li>
 												<li>
 													<div class="list_inner">
-														<span class="icon"><img class="svg" src="img/svg/letter.svg"
+														<span class="icon"><img class="svg" src="{% static 'img/svg/letter.svg' %}"
 																alt="" /></span>
 														<div class="short">
 															<h3>Email Me</h3>
@@ -634,7 +526,7 @@
 												<li>
 													<div class="list_inner">
 														<span class="icon"><img class="svg"
-																src="img/svg/placeholder.svg" alt="" /></span>
+																src="{% static 'img/svg/placeholder.svg' %}" alt="" /></span>
 														<div class="short">
 															<h3>Address</h3>
 															<span>Islamabad, Pakistan</span>
