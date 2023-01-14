@@ -2,3 +2,4 @@ __pycache__/
 admin/
 .env
 .vscode/
+migrations/
