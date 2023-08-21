@@ -30,7 +30,7 @@ jobs:
         AWS_REGION: 'us-east-2'
         DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
       run: |
-        eb init django-application --region $AWS_REGION
-        eb use Django-application-envInfo
+        eb init django-application --region $AWS_REGION --no-interactive
+        eb use Django-application-env
         eb setenv DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY
         eb deploy
