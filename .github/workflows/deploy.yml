@@ -2,8 +2,8 @@
 
 name: CI-CD pipeline to AWS
 env:
-  EB_APPLICATION_NAME: "huzaifazahoor-test-app"
-  EB_ENVIRONMENT_NAME: "Huzaifazahoor-test-app-env"
+  EB_APPLICATION_NAME: "huzaifazahoor-app"
+  EB_ENVIRONMENT_NAME: "Huzaifazahoor-app-env"
   AWS_REGION_NAME: "us-east-2"
 
 on:
