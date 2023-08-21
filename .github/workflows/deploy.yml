@@ -30,14 +30,14 @@ jobs:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: django-application
-          environment_name: Django-application-envInfo
+          environment_name: Django-application-env
           version_label: 1
           region: "us-east-2"
           deployment_package: deploy.zip
 
       - name: Set Django Secret Key as environment variable
         run: |
-          aws elasticbeanstalk update-environment --environment-name Django-application-envInfo --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=DJANGO_SECRET_KEY,Value=${{ secrets.DJANGO_SECRET_KEY }}
+          aws elasticbeanstalk update-environment --environment-name Django-application-env --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=DJANGO_SECRET_KEY,Value=${{ secrets.DJANGO_SECRET_KEY }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
