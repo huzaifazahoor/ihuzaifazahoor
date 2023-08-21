@@ -32,6 +32,7 @@ jobs:
           application_name: django-application
           environment_name: Django-application-env
           version_label: 1
+          use_existing_version_if_available: true
           region: "us-east-2"
           deployment_package: deploy.zip
 
