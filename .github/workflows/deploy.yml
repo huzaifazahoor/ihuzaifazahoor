@@ -1,45 +1,54 @@
-name: Deploy to Elastic Beanstalk
+#Location: .github/workflows/custom_config.yml
+
+name: CI-CD pipeline to AWS
+env:
+  EB_APPLICATION_NAME: "huzaifazahoor-test-app"
+  EB_ENVIRONMENT_NAME: "Huzaifazahoor-test-app-env"
+  AWS_REGION_NAME: "us-east-2"
 
 on:
   push:
     branches:
-      - main
-
+      - main #Use your own branch here (Might be staging or testing)
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout source code
+      - name: Git clone on our repo
         uses: actions/checkout@v2
 
-      - name: Setup Python
-        uses: actions/setup-python@v2
+      - name: Create zip deployment package
+        run: zip -r deploy.zip ./ -x *.git*
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          python-version: 3.8
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION_NAME }}
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Generate deployment package
-        run: zip -r deploy.zip . -x '*.git*'
-
-      - name: Deploy to EB
-        uses: einaregilsson/beanstalk-deploy@v20
+      - name: Print nice message on success finish
+        run: echo "CI part finished successfuly"
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: huzaifazahoor-app
-          environment_name: Huzaifazahoor-app-env
-          version_label: "Sample"
-          use_existing_version_if_available: true
-          region: "us-east-2"
-          deployment_package: deploy.zip
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION_NAME }}
 
-      - name: Set Django Secret Key as environment variable
+      - name: Create new EBL app ver
         run: |
-          aws elasticbeanstalk update-environment --environment-name Huzaifazahoor-app-env --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=DJANGO_SECRET_KEY,Value=${{ secrets.DJANGO_SECRET_KEY }}
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: "us-east-2"
+          aws elasticbeanstalk create-application-version \
+          --application-name ${{ env.EB_APPLICATION_NAME }} \
+          --version-label "1"
+
+  
+
+      - name: Deploy new app
+        run: aws elasticbeanstalk update-environment --environment-name ${{ env.EB_ENVIRONMENT_NAME }} --version-label "1"
+      - name: Print nice message on success finish
+        run: echo "CD part finished successfuly"
